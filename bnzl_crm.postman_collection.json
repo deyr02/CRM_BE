@@ -1,0 +1,864 @@
+{
+	"info": {
+		"_postman_id": "923dbbd2-9064-44d5-a0ee-acf713318d81",
+		"name": "bnzl_crm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18757348"
+	},
+	"item": [
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Login as admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();\r",
+									"pm.environment.set('token', res.data.Login.Token)\r",
+									"pm.globals.set(\"token\", res.data.Login.Token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation Login{\r\n    Login(input:{UserName: \"bnzl_admin\", Password: \"Password\"}){\r\n        UserName\r\n        Token\r\n        Expiry\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/account/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();\r",
+									"pm.environment.set('token', res.data.Login.Token)\r",
+									"pm.globals.set(\"token\", res.data.Login.Token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation Login{\r\n    Login(input:{UserName: \"rajib_dey123\", Password: \"P@ssw0rd\"}){\r\n        UserName\r\n        Token\r\n        Expiry\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/account/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserRole",
+			"item": [
+				{
+					"name": "Get All User Role",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/userrole/getalluserrole?query=query GetAllUserRole{\nGetAllUserRole{\n  RoleID\n  RoleName\n  SystemRole\n  Operations\n}\n}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"userrole",
+								"getalluserrole"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "query GetAllUserRole{\nGetAllUserRole{\n  RoleID\n  RoleName\n  SystemRole\n  Operations\n}\n}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Role By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/userrole/getuserrole?query=query GetUserRoleByID{\n  GetUserRoleByID(_id:\"1111111111111111112\"){\n    RoleID\n    RoleName\n    SystemRole\n    Operations\n  }\n}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"userrole",
+								"getuserrole"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "query GetUserRoleByID{\n  GetUserRoleByID(_id:\"1111111111111111112\"){\n    RoleID\n    RoleName\n    SystemRole\n    Operations\n  }\n}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new User role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation AddNewRole{\r\n  AddNewUserRole(input:{RoleName:\"Admins1\",Operations:[GET, POST,PUT] }){\r\n    RoleID\r\n    RoleName\r\n    Operations\r\n    SystemRole\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/userrole",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"userrole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit User Role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ModifyUserRole {\r\n  ModifyUserRole(_id:\"d5d845bd0e6343d7b2442c4848c9091d\", input:{RoleName:\"Adminx12\",Operations:[GET]}){\r\n    RoleID\r\n    RoleName\r\n    Operations\r\n    SystemRole\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/userrole/modifyuserrole",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"userrole",
+								"modifyuserrole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "\r\nmutation DeleteUserRole {\r\n  DeleUserRole(_id:\"d5d845bd0e6343d7b2442c4848c9091d\")\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/userrole/deleteuserrole",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"userrole",
+								"deleteuserrole"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "GetAll User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/getalluser?query=query GetAllUser {\n  GetAllUser{\n    UserID\n    RoleID\n    UserName\n    Password\n    Email\n    CreatedAT\n    CreatedBy\n    UpdatedAT\n    SystemUser\n    Properties{\n      key\n      value\n    }\n  }\n}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"getalluser"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "query GetAllUser {\n  GetAllUser{\n    UserID\n    RoleID\n    UserName\n    Password\n    Email\n    CreatedAT\n    CreatedBy\n    UpdatedAT\n    SystemUser\n    Properties{\n      key\n      value\n    }\n  }\n}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/getuser?query=query GetUserById {\n  GetUserByID(_id:\"bc9a66c48a344d989de8c09c31734d80\"){\n    UserID\n    UserName\n    Email CreatedBy\n    Properties{\n      key\n      value\n    }\n  }\n}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"getuser"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "query",
+									"value": "query GetUserById {\n  GetUserByID(_id:\"bc9a66c48a344d989de8c09c31734d80\"){\n    UserID\n    UserName\n    Email CreatedBy\n    Properties{\n      key\n      value\n    }\n  }\n}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "\r\nmutation AddNewUser{\r\n  AddNewUser(input:{\r\n    RoleID:\"412064f681de4700b3bd9bbd35e1ff50\", \r\n  \tUserName:\"rajib_dey123\"\r\n    Email:\"rajib_dey123@bnzl.com\"\r\n    Password:\"P@ssw0rd\"\r\n    Properties:[\r\n      {\r\n        key:\"FirstName\"\r\n        DataType:String\r\n        value:\"Rajib\"\r\n      },\r\n      {\r\n        key:\"LastName\"\r\n        DataType:String\r\n        value:\"Dey\"\r\n      },\r\n      {\r\n        key:\"PhoneNumber\"\r\n        DataType:String\r\n        value:\"642102960832\"\r\n      },\r\n      \r\n    ]\r\n    \r\n  }){\r\n    UserID\r\n    RoleID\r\n    UserName\r\n    Email\r\n    Password\r\n    CreatedAT\r\n    ModifiedBy\r\n    IsActive\r\n    CreatedAT\r\n    UpdatedAT\r\n    DeletedAT\r\n    Properties{\r\n      key\r\n      value\r\n      DataType\r\n    }\r\n  }\r\n}\r\n\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ModifyUser{\r\n  ModifyUser(\r\n    _id:\"bc9a66c48a344d989de8c09c31734d80\",\r\n    input:{\r\n    RoleID:\"1111111111111111112\", \r\n  \tUserName:\"rajib_dey123\"\r\n    Email:\"rajib_dey13@bnzl.com\"\r\n    Password:\"P@ssw0rd\"\r\n    Properties:[\r\n      {\r\n        key:\"FirstName\"\r\n        DataType:String\r\n        value:\"Rajib\"\r\n      },\r\n      {\r\n        key:\"LastName\"\r\n        DataType:String\r\n        value:\"Dey\"\r\n      },\r\n      {\r\n        key:\"PhoneNumber\"\r\n        DataType:String\r\n        value:\"64210296083332\"\r\n      },\r\n      \r\n    ]\r\n    \r\n  }){\r\n    UserID\r\n    RoleID\r\n    UserName\r\n    Email\r\n    Password\r\n    CreatedAT\r\n    ModifiedBy\r\n    IsActive\r\n    CreatedAT\r\n    UpdatedAT\r\n    DeletedAT\r\n    Properties{\r\n      key\r\n      value\r\n      DataType\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/modifyuser/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"modifyuser",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation DeleteUser{\r\n    DeleteUser(_id: \"1e636a520e6945199f19752a064f05e7\")\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/deleteuser",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"deleteuser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User_Meta",
+			"item": [
+				{
+					"name": "UserFormCollection",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/userform/metauser?query= query GetuserMetaCollection {\n GetUserMetaCollection{\n\n\t\tFields {\n      FieldID\n      FieldName\n      DataType\n      FieldType\n      IsRequired\n      Visibility\n      SystemFieled\n      MaxValue\n      MinValue\n      DefaultValue\n      PossibleValues\n      FieldOrder\n\t\t} \n\t}\n}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"userform",
+								"metauser"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": " query GetuserMetaCollection {\n GetUserMetaCollection{\n\n\t\tFields {\n      FieldID\n      FieldName\n      DataType\n      FieldType\n      IsRequired\n      Visibility\n      SystemFieled\n      MaxValue\n      MinValue\n      DefaultValue\n      PossibleValues\n      FieldOrder\n\t\t} \n\t}\n}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new field",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation AddNewElement_Meta_User{\r\n  AddNewElement_Meta_User(input:{\r\n          FieldName: \"Gender\",\r\n          DataType: String,\r\n          FieldType: TextBox,\r\n          IsRequired: true,\r\n          Visibility: true,\r\n          SystemFieled: false,\r\n          MaxValue: 32,\r\n          MinValue: 8,\r\n          DefaultValue: \"\",\r\n          PossibleValues: null,\r\n          FieldOrder: 5}){\r\n\t\tFields{\r\n       FieldID\r\n      FieldName\r\n      DataType\r\n      FieldType\r\n      IsRequired\r\n      Visibility\r\n      SystemFieled\r\n      MaxValue\r\n      MinValue\r\n      DefaultValue\r\n      PossibleValues\r\n      FieldOrder\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/userform/addnewfield",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"userform",
+								"addnewfield"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modfify Field",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation  ModifyElement_Meta_user{\r\n  ModifyElement_Meta_user(_id: \"417a2a9fb82b4056836ec64490788b6c\", input:{\r\n\t\t\tFieldName:\"Status\",\r\n          DataType: String,\r\n          FieldType: TextBox,\r\n          IsRequired: true,\r\n          Visibility: true,\r\n          SystemFieled: false,\r\n          MaxValue: 32,\r\n          MinValue: 8,\r\n          DefaultValue: \"\",\r\n          PossibleValues: null,\r\n          FieldOrder: 5\r\n  }){\r\n    Fields{\r\n         FieldID\r\n      FieldName\r\n      DataType\r\n      FieldType\r\n      IsRequired\r\n      Visibility\r\n      SystemFieled\r\n      MaxValue\r\n      MinValue\r\n      DefaultValue\r\n      PossibleValues\r\n      FieldOrder\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/userform/modifyfield",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"userform",
+								"modifyfield"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Field",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation DeleteElement_Meta_user{\r\n\tDeleteElement_Meta_user(_id:\"5577006791947779410\"){\r\n    Fields{\r\n       FieldID\r\n        FieldName\r\n        DataType\r\n        FieldType\r\n        IsRequired\r\n        Visibility\r\n        SystemFieled\r\n        MaxValue\r\n        MinValue\r\n        DefaultValue\r\n        PossibleValues\r\n        FieldOrder\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/userform/deletefield",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"userform",
+								"deletefield"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Activity_Meta",
+			"item": [
+				{
+					"name": "ActivityFormCollection",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/activityform/metaactivity?query=query GetMetaActivityCollection{\n  GetMetaActivityCollection{\n    Fields{\n      FieldID\n      FieldName\n      DataType\n      FieldType\n      IsRequired\n      Visibility\n      SystemFieled\n      MaxValue\n      MinValue\n      DefaultValue\n      PossibleValues\n      FieldOrder\n    }\n  }\n}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"activityform",
+								"metaactivity"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "query GetMetaActivityCollection{\n  GetMetaActivityCollection{\n    Fields{\n      FieldID\n      FieldName\n      DataType\n      FieldType\n      IsRequired\n      Visibility\n      SystemFieled\n      MaxValue\n      MinValue\n      DefaultValue\n      PossibleValues\n      FieldOrder\n    }\n  }\n}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new field",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation AddNewElement_Meta_Activity{\r\n  AddNewElement_Meta_Activity(input:{\r\n          FieldName: \"Status\",\r\n          DataType: String,\r\n          FieldType: TextBox,\r\n          IsRequired: true,\r\n          Visibility: true,\r\n          SystemFieled: false,\r\n          MaxValue: 32,\r\n          MinValue: 8,\r\n          DefaultValue: \"\",\r\n          PossibleValues: null,\r\n          FieldOrder: 5}){\r\n\t\tFields{\r\n       FieldID\r\n      FieldName\r\n      DataType\r\n      FieldType\r\n      IsRequired\r\n      Visibility\r\n      SystemFieled\r\n      MaxValue\r\n      MinValue\r\n      DefaultValue\r\n      PossibleValues\r\n      FieldOrder\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/activityform/addnewfield",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"activityform",
+								"addnewfield"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modfify Field",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation  ModifyElement_Meta_Activity{\r\n  ModifyElement_Meta_Activity(_id: \"511d6414aac4456bb573266170a7931a\", input:{\r\n\t\t\t\t\tFieldName:\"Email\",\r\n          DataType: String,\r\n          FieldType: TextBox,\r\n          IsRequired: true,\r\n          Visibility: true,\r\n          SystemFieled: false,\r\n          MaxValue: 32,\r\n          MinValue: 8,\r\n          DefaultValue: \"\",\r\n          PossibleValues: null,\r\n          FieldOrder: 5\r\n  }){\r\n    Fields{\r\n         FieldID\r\n      FieldName\r\n      DataType\r\n      FieldType\r\n      IsRequired\r\n      Visibility\r\n      SystemFieled\r\n      MaxValue\r\n      MinValue\r\n      DefaultValue\r\n      PossibleValues\r\n      FieldOrder\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/activityform/modifyfield",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"activityform",
+								"modifyfield"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Field",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation DeleteElement_Meta_Activity{\r\n\tDeleteElement_Meta_Activity(_id:\"a85aa521a44d49bab837bfacc3d59e1\")\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/activityform/deletefield",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"activityform",
+								"deletefield"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Activity",
+			"item": [
+				{
+					"name": "GetAllActivity",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/activity/getallactivities?query=query GetAllActivity{\n  GetAllActivity{\n    ActivityID\n    CreatedAT\n    UpdatedAT\n    CreatedBy\n    ModifiedBy\n    DeletedAT\n    Properties{\n      key\n      value\n    }\n  }\n}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"activity",
+								"getallactivities"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "query GetAllActivity{\n  GetAllActivity{\n    ActivityID\n    CreatedAT\n    UpdatedAT\n    CreatedBy\n    ModifiedBy\n    DeletedAT\n    Properties{\n      key\n      value\n    }\n  }\n}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get activity by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/activity/getactivity?query=query GetActivityByID{\n  GetActivityByID(_id:\"38d0aede8918428d93d9bb3c809c0bfa\"){\n     ActivityID\n    CreatedAT\n    UpdatedAT\n    CreatedBy\n    ModifiedBy\n    DeletedAT\n    Properties{\n      key\n      value\n    }\n  }\n}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"activity",
+								"getactivity"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "query",
+									"value": "query GetActivityByID{\n  GetActivityByID(_id:\"38d0aede8918428d93d9bb3c809c0bfa\"){\n     ActivityID\n    CreatedAT\n    UpdatedAT\n    CreatedBy\n    ModifiedBy\n    DeletedAT\n    Properties{\n      key\n      value\n    }\n  }\n}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Activity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation AddActivity{\r\n  AddNewActivity(input:{\r\n    Properties:[\r\n      \r\n      {\r\n        key:\"ActivityName\"\r\n        DataType:String\r\n        value:\"Payroll Webinar\"\r\n      },\r\n      {\r\n        key:\"ActivityType\"\r\n        DataType:String\r\n        value:\"Webinar\"\r\n      },\r\n      {\r\n        key:\"Start\"\r\n        DataType:String\r\n        value:\"2022-07-22 14:50:55.3376361 +1200 NZST m=+86882.857459601\"\r\n      },\r\n      {\r\n        key:\"Finish\"\r\n        DataType:String\r\n        value:\"2022-07-22 14:50:55.3376361 +1200 NZST m=+86882.857459601\"\r\n      },\r\n    ]\r\n  }){\r\n   ActivityID\r\n    CreatedAT\r\n    UpdatedAT\r\n    CreatedBy\r\n    ModifiedBy\r\n    DeletedAT\r\n    Properties{\r\n      key\r\n      value\r\n    }\r\n    \r\n  }\r\n}\r\n\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/activity/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"activity",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Activity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "\r\nmutation ModifyActivity{\r\n  ModifyActivity(_id:\"7e84bd0a1c1c45869225985fa1dd85d2\", input:{\r\n    Properties:[\r\n       {\r\n        key:\"ActivityName\"\r\n        DataType:String\r\n        value:\"MYOB Advance Webinar\"\r\n      },\r\n      {\r\n        key:\"ActivityType\"\r\n        DataType:String\r\n        value:\"Webinar\"\r\n      },\r\n      {\r\n        key:\"Start\"\r\n        DataType:String\r\n        value:\"2022-07-23 14:50:55.3376361 +1200 NZST m=+86882.857459601\"\r\n      },\r\n      {\r\n        key:\"Finish\"\r\n        DataType:String\r\n        value:\"2022-07-23 14:50:55.3376361 +1200 NZST m=+86882.857459601\"\r\n      },\r\n    ]\r\n  })\r\n  {\r\n    ActivityID\r\n    CreatedAT\r\n    UpdatedAT\r\n    CreatedBy\r\n    ModifiedBy\r\n    DeletedAT\r\n    Properties{\r\n      key\r\n      value\r\n    }\r\n    \r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/activity/modifyactivity/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"activity",
+								"modifyactivity",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Activity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation DeleteActivity {\r\n  DeleteActivity(_id:\"441975e798db429f91d5cb362a84e38e\")\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/activity/deleteactivity",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"activity",
+								"deleteactivity"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://127.0.0.1:8090",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcnlkYXRlIjoiMjAyMi0wNy0yNiAxNDo0OToyOS4xNjc4NDg5ICsxMjAwIE5aU1QgbT0rODgwMjUuMzQ2MzQ3NjAxIiwicm9sZWlkIjoiMTExMTExMTExMTExMTExMTExMSIsInVzZXJuYW1lIjoiYm56bF9hZG1pbiJ9.6I__9z98YvZkHCOWBbkJit1PLz-wH9uCIey458M_ZIc",
+			"type": "string"
+		}
+	]
+}

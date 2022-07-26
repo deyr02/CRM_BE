@@ -1,0 +1,114 @@
+query GetAllActivity{
+  GetAllActivity{
+    ActivityID
+    CreatedAT
+    UpdatedAT
+    CreatedBy
+    ModifiedBy
+    DeletedAT
+    Properties{
+      key
+      value
+    }
+  }
+}
+
+query GetActivityByID{
+  GetActivityByID(_id:"5c6b69c07d0043788afa4bded761b436"){
+     ActivityID
+    CreatedAT
+    UpdatedAT
+    CreatedBy
+    ModifiedBy
+    DeletedAT
+    Properties{
+      key
+      value
+    }
+  }
+}
+
+mutation AddActivity{
+  AddNewActivity(input:{
+    Properties:[
+      
+      {
+        key:"ActivityName"
+        DataType:String
+        value:"Payroll Webinar"
+      },
+      {
+        key:"ActivityType"
+        DataType:String
+        value:"Webinar"
+      },
+      {
+        key:"Start"
+        DataType:String
+        value:"2022-07-22 14:50:55.3376361 +1200 NZST m=+86882.857459601"
+      },
+      {
+        key:"Finish"
+        DataType:String
+        value:"2022-07-22 14:50:55.3376361 +1200 NZST m=+86882.857459601"
+      },
+    ]
+  }){
+   ActivityID
+    CreatedAT
+    UpdatedAT
+    CreatedBy
+    ModifiedBy
+    DeletedAT
+    Properties{
+      key
+      value
+    }
+    
+  }
+}
+
+
+
+mutation ModifyActivity{
+  ModifyActivity(_id:"5c6b69c07d0043788afa4bded761b436", input:{
+    Properties:[
+       {
+        key:"ActivityName"
+        DataType:String
+        value:"MYOB Advance Webinar"
+      },
+      {
+        key:"ActivityType"
+        DataType:String
+        value:"Webinar"
+      },
+      {
+        key:"Start"
+        DataType:String
+        value:"2022-07-23 14:50:55.3376361 +1200 NZST m=+86882.857459601"
+      },
+      {
+        key:"Finish"
+        DataType:String
+        value:"2022-07-23 14:50:55.3376361 +1200 NZST m=+86882.857459601"
+      },
+    ]
+  })
+  {
+    ActivityID
+    CreatedAT
+    UpdatedAT
+    CreatedBy
+    ModifiedBy
+    DeletedAT
+    Properties{
+      key
+      value
+    }
+    
+  }
+}
+mutation DeleteActivity {
+  DeleteActivity(_id:"5a1b2d9b20fd499cb9227cfc2f4dba79")
+}

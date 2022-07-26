@@ -1,0 +1,346 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+#------------------------------------------
+#-----------form controls------------------
+#------------------------------------------
+enum FieldType{
+  TextBox
+  RadioButtons
+  CheckBox
+  CheckBoxes
+  DropDownList
+  InputFile
+  DatePicker
+  DateTimePicker
+
+}
+
+enum DataType{
+  Boolean
+  Date
+  Double
+  Integer
+  String
+}
+
+type CustomFieldElement{
+  FieldID: ID!
+  FieldName: String!
+	DataType: DataType!
+  FieldType: FieldType!
+  IsRequired: Boolean!
+  Visibility: Boolean!
+  SystemFieled: Boolean!
+  MaxValue: Int
+  MinValue: Int
+  DefaultValue: String!
+  PossibleValues: [String]
+  FieldOrder:Int!
+}
+
+input NewCustomFieldElement{
+  FieldName: String!
+	DataType: DataType!
+  FieldType: FieldType!
+  IsRequired: Boolean!
+  Visibility: Boolean!
+  SystemFieled: Boolean!
+  MaxValue: Int
+  MinValue: Int
+  DefaultValue: String!
+  PossibleValues: [String]
+  FieldOrder:Int!
+}
+
+#------------------------------------------
+#---------Element value -------------------
+#------------------------------------------
+
+type ElementValue{
+  key: String!
+  DataType: DataType!
+  value: String!
+}
+
+input NewElementValue{
+  key: String!
+  DataType: DataType!
+  value: String!
+}
+
+
+#------------------------------------------
+#--------- Forms --------------------------
+#------------------------------------------
+
+input NewCollection{ 
+    Fields: [NewCustomFieldElement]
+}
+
+type MetaUserCollection{				
+    Fields: [CustomFieldElement!]!
+}
+
+type MetaActivityCollection{				
+    Fields: [CustomFieldElement!]!
+}
+
+
+
+
+
+#------------------------------------------
+#--------- Collections --------------------------
+#------------------------------------------
+
+type UserCollection{
+  RecordID: ID!
+  data: [ElementValue!]!
+  
+}
+
+input NewUserCollection{
+  data: [NewElementValue!]!
+}
+
+
+#------------------------------------------
+#--------- UserRole --------------------------
+#------------------------------------------
+
+enum operation{
+  GET 
+  POST 
+  PUT
+  DEL
+}
+
+input NewUserRole{
+  RoleName: String!
+  Operations: [operation!]!
+}
+
+
+type UserRole {
+  RoleID: ID!
+  RoleName: String!
+  Operations: [operation!]!
+  SystemRole: Boolean!
+}
+
+
+
+#------------------------------------------
+#--------- UserRole --------------------------
+#------------------------------------------
+scalar Date
+
+type User {
+  UserID: ID!
+  RoleID: ID!
+  CreatedAT: Date
+  UpdatedAT: Date
+  DeletedAT: Date
+  CreatedBy: ID
+  ModifiedBy: ID
+  IsActive: Boolean!
+  SystemUser: Boolean!
+  UserName: String!
+  Password: String!
+  Email:String!
+  Properties: [ElementValue!]!
+
+}
+
+input NewUser{
+   RoleID: String!
+   UserName: String!
+  Password: String!
+  Email:String!
+   Properties: [NewElementValue!]!
+}
+
+input Login {
+  UserName: String!
+  Password: String!
+}
+
+type UserDTO{
+  UserName: String!
+  Token:String!
+  Expiry: Date!
+
+}
+
+type TokenServiceDto{
+  UserName: String!
+  RoleID:String!
+  ExpiryDate:Date!
+}
+
+#------------------------------------------
+#--------- Account --------------------------
+#------------------------------------------
+
+#----------Account Collection-----------------
+type Account{
+  AccountID:ID!
+  AccountName: String!
+
+  CreatedAT: Date
+  UpdatedAT: Date
+  DeletedAT: Date
+
+  CreatedBy: ID
+  ModifiedBy: ID
+
+  Properties: [ElementValue!]!
+}
+
+
+input NewAccount{
+   Properties: [NewElementValue!]!
+}
+
+#-----------------------Account-Meta-collection------------------
+
+type MetaAccountCollection{				
+    Fields: [CustomFieldElement!]!
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#------------------------------------------
+#--------- Activity --------------------------
+#------------------------------------------
+
+type Activity {
+  ActivityID: ID!
+
+  CreatedAT: Date
+  UpdatedAT: Date
+  DeletedAT: Date
+
+  CreatedBy: ID
+  ModifiedBy: ID
+
+  Properties: [ElementValue!]!
+}
+
+input NewActivity{
+  Properties:[NewElementValue!]!
+}
+
+
+
+
+
+
+
+
+type Query{
+
+  ##------Meta User------------
+  GetUserMetaCollection: MetaUserCollection!
+  ##------MetaActivity---------
+  GetMetaActivityCollection: MetaActivityCollection
+  ##------MetaActivity---------
+  GetMetaAccountCollection: MetaAccountCollection
+
+
+
+
+
+
+
+
+  ##UserRole
+  GetAllUserRole: [UserRole!]
+  GetUserRoleByID(_id:String): UserRole!
+
+  ##User
+  GetAllUser:[User!]!
+  GetUserByID(_id:String): User!
+  # GetUserByUserName (_userName: String): User!
+
+
+  ## --------Activity--------------
+  GetAllActivity: [Activity!]!
+  GetActivityByID(_id:String): Activity!
+
+
+  ## --------Account--------------
+  GetAllAccount: [Account!]!
+  GetAccountByID(_id:String): Account!
+
+  }
+
+type Mutation{
+
+  #-------Meta-user Collection---------------
+  AddNewElement_Meta_User(input:NewCustomFieldElement): MetaUserCollection!
+  ModifyElement_Meta_user(_id:String, input:NewCustomFieldElement):MetaUserCollection!
+  DeleteElement_Meta_user(_id:String):MetaUserCollection!
+
+#---------Meta Activity Collection------------
+  AddNewElement_Meta_Activity(input:NewCustomFieldElement): MetaActivityCollection!
+  ModifyElement_Meta_Activity(_id:String, input:NewCustomFieldElement):MetaActivityCollection!
+  DeleteElement_Meta_Activity(_id:String):String!
+
+ #-------------------Account-Meta-collection---------------------
+  AddNewElement_Meta_Account(input:NewCustomFieldElement): MetaAccountCollection!
+  ModifyElement_Meta_Account(_id:String, input:NewCustomFieldElement):MetaAccountCollection!
+  DeleteElement_Meta_Account(_id:String):String!
+
+
+
+
+#----------------------------------------------------------------------------------
+#-----------Collections------------------------------------------------------------
+#----------------------------------------------------------------------------------
+
+  #--------userCollection----------------------
+  AddNewUser(input:NewUser): User!
+  DeleteUser(_id:String): String!
+  ModifyUser(_id:String, input:NewUser): User!
+  Login(input:Login): UserDTO!
+  ##-- the following methods need to be added later
+  #AssignRole(_userID: string, _roleID String): User!
+  #UpdatePassword(_id:string, password String): string
+  #LockUser(_id:string): Boolean
+  #RefreshToken(): UserDto
+  
+  #-------UserRole-------------------------------
+  AddNewUserRole(input:NewUserRole): UserRole!
+  ModifyUserRole(_id:String, input:NewUserRole): UserRole
+  DeleUserRole(_id:String):String!
+
+  #-------Activity-------------------------------
+  AddNewActivity(input:NewActivity): Activity!
+  ModifyActivity(_id:String, input:NewActivity): Activity!
+  DeleteActivity(_id: String): String!
+ 
+
+  #-------------------Account-collection---------------------
+  AddNewAccount(input:NewActivity): Account!
+  ModifyAccount(_id:String, input:NewActivity): Account!
+  DeleteAccount(_id: String): String!
+
+ 
+
+
+
+}

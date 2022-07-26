@@ -1,0 +1,100 @@
+query GetuserMetaCollection {
+ GetUserMetaCollection{
+
+		Fields {
+      FieldID
+      FieldName
+      DataType
+      FieldType
+      IsRequired
+      Visibility
+      SystemFieled
+      MaxValue
+      MinValue
+      DefaultValue
+      PossibleValues
+      FieldOrder
+		} 
+	}
+}
+
+
+mutation addField{
+  AddNewElement_Meta_User(input:{
+          FieldName: "Gender",
+          DataType: String,
+          FieldType: TextBox,
+          IsRequired: true,
+          Visibility: true,
+          SystemFieled: false,
+          MaxValue: 32,
+          MinValue: 8,
+          DefaultValue: "",
+          PossibleValues: null,
+          FieldOrder: 5}){
+		Fields{
+       FieldID
+      FieldName
+      DataType
+      FieldType
+      IsRequired
+      Visibility
+      SystemFieled
+      MaxValue
+      MinValue
+      DefaultValue
+      PossibleValues
+      FieldOrder
+    }
+  }
+}
+
+mutation modifycustomElement{
+  ModifyElement_Meta_user(_id: "5577006791947779410", input:{
+					FieldName:"Email",
+          DataType: String,
+          FieldType: TextBox,
+          IsRequired: true,
+          Visibility: true,
+          SystemFieled: true,
+          MaxValue: 32,
+          MinValue: 8,
+          DefaultValue: "",
+          PossibleValues: null,
+          FieldOrder: 5
+  }){
+    Fields{
+         FieldID
+      FieldName
+      DataType
+      FieldType
+      IsRequired
+      Visibility
+      SystemFieled
+      MaxValue
+      MinValue
+      DefaultValue
+      PossibleValues
+      FieldOrder
+    }
+  }
+}
+
+mutation deleteELementUser{
+	DeleteElement_Meta_user(_id:"5577006791947779410"){
+    Fields{
+       FieldID
+        FieldName
+        DataType
+        FieldType
+        IsRequired
+        Visibility
+        SystemFieled
+        MaxValue
+        MinValue
+        DefaultValue
+        PossibleValues
+        FieldOrder
+    }
+  }
+}

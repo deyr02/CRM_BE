@@ -1,0 +1,123 @@
+query GetAllUser {
+  GetAllUser{
+    UserID
+    RoleID
+    UserName
+    Password
+    Email
+    CreatedAT
+    CreatedBy
+    UpdatedAT
+    SystemUser
+    Properties{
+      key
+      value
+    }
+  }
+}
+
+query GetUserById {
+  GetUserByID(_id:"4eb576279a4b48e5bf3e6cbff81b9241"){
+    UserID
+    UserName
+    Email
+    Properties{
+      key
+      value
+    }
+  }
+}
+
+mutation AddNewUser{
+  AddNewUser(input:{
+    RoleID:"1111111111111111111", 
+  	UserName:"rajib_dey12"
+    Email:"rajib_dey1@bnzl.com"
+    Password:"P@ssw0rd"
+    Properties:[
+      {
+        key:"FirstName"
+        DataType:String
+        value:"Rajib"
+      },
+      {
+        key:"LastName"
+        DataType:String
+        value:"Dey"
+      },
+      {
+        key:"PhoneNumber"
+        DataType:String
+        value:"642102960832"
+      },
+      
+    ]
+    
+  }){
+    UserID
+    RoleID
+    UserName
+    Email
+    Password
+    CreatedAT
+    ModifiedBy
+    IsActive
+    CreatedAT
+    UpdatedAT
+    DeletedAT
+    Properties{
+      key
+      value
+      DataType
+    }
+  }
+}
+
+
+
+mutation ModifyUser{
+  ModifyUser(
+    _id:"c53265560962492fa6226a7970062441",
+    input:{
+    RoleID:"1111111111111111111", 
+  	UserName:"rajib_dey123"
+    Email:"rajib_dey13@bnzl.com"
+    Password:"P@ssw0rd"
+    Properties:[
+      {
+        key:"FirstName"
+        DataType:String
+        value:"Rajib"
+      },
+      {
+        key:"LastName"
+        DataType:String
+        value:"Dey"
+      },
+      {
+        key:"PhoneNumber"
+        DataType:String
+        value:"64210296083332"
+      },
+      
+    ]
+    
+  }){
+    UserID
+    RoleID
+    UserName
+    Email
+    Password
+    CreatedAT
+    ModifiedBy
+    IsActive
+    CreatedAT
+    UpdatedAT
+    DeletedAT
+    Properties{
+      key
+      value
+      DataType
+    }
+  }
+}

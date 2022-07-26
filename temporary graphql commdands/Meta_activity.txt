@@ -1,0 +1,88 @@
+query getAllActivity{
+  GetMetaActivityCollection{
+    Fields{
+      FieldID
+      FieldName
+      DataType
+      FieldType
+      IsRequired
+      Visibility
+      SystemFieled
+      MaxValue
+      MinValue
+      DefaultValue
+      PossibleValues
+      FieldOrder
+    }
+  }
+}
+
+
+mutation addnewfield_meta_user{
+  AddNewElement_Meta_Activity(input:{
+          FieldName: "Status",
+          DataType: String,
+          FieldType: TextBox,
+          IsRequired: true,
+          Visibility: true,
+          SystemFieled: false,
+          MaxValue: 32,
+          MinValue: 8,
+          DefaultValue: "",
+          PossibleValues: null,
+          FieldOrder: 5}){
+		Fields{
+       FieldID
+      FieldName
+      DataType
+      FieldType
+      IsRequired
+      Visibility
+      SystemFieled
+      MaxValue
+      MinValue
+      DefaultValue
+      PossibleValues
+      FieldOrder
+    }
+  }
+}
+
+
+
+
+mutation modifycustomElement_meta_activity{
+  ModifyElement_Meta_Activity(_id: "511d6414aac4456bb573266170a7931a", input:{
+					FieldName:"Email",
+          DataType: String,
+          FieldType: TextBox,
+          IsRequired: true,
+          Visibility: true,
+          SystemFieled: false,
+          MaxValue: 32,
+          MinValue: 8,
+          DefaultValue: "",
+          PossibleValues: null,
+          FieldOrder: 5
+  }){
+    Fields{
+         FieldID
+      FieldName
+      DataType
+      FieldType
+      IsRequired
+      Visibility
+      SystemFieled
+      MaxValue
+      MinValue
+      DefaultValue
+      PossibleValues
+      FieldOrder
+    }
+  }
+}
+
+
+mutation deleteELement_meta_activity{
+	DeleteElement_Meta_Activity(_id:"a85aa521a44d49bab837bfacc3d59e1")
+}

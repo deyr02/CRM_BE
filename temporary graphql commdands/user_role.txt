@@ -1,0 +1,41 @@
+query GetAllUserRole{
+GetAllUserRole{
+  RoleID
+  RoleName
+  SystemRole
+  Operations
+}
+}
+
+
+
+query GetUserRoleByID{
+  GetUserRoleByID(_id:"1111111111111111111"){
+    RoleID
+    RoleName
+    SystemRole
+    Operations
+  }
+}
+
+mutation AddNewRole{
+  AddNewUserRole(input:{RoleName:"Admins1",Operations:[GET, POST,PUT] }){
+    RoleID
+    RoleName
+    Operations
+    SystemRole
+  }
+}
+
+mutation DeleteUserRole {
+  DeleUserRole(_id:"1111111111111111111")
+}
+
+mutation modifyUserRole {
+  ModifyUserRole(_id:"8674665223082153551", input:{RoleName:"Adminx12",Operations:[GET]}){
+    RoleID
+    RoleName
+    Operations
+    SystemRole
+  }
+}
