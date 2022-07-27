@@ -94,6 +94,18 @@ func main() {
 	metaactivity.POST("/modifyfield", http.ModifyMetaActivityField())
 	metaactivity.POST("/deletefield", http.DeleteMetaActivityField())
 
+	//
+	//
+	//---------------------Activity--------------------------------
+	//
+	//
+	metaaccount := server.Group("accountform")
+	metaaccount.Use(auth.AuthAdminMiddleware())
+	metaaccount.GET("/metaaccount", http.GetAllMetaAccountField())
+	metaaccount.POST("/addnewfield", http.AddNewMetaAccountField())
+	metaaccount.POST("/modifyfield", http.ModifyMetaAccountField())
+	metaaccount.POST("/deletefield", http.DeleteMetaAccountField())
+
 	//user.Use(auth.AuthMiddleware())
 	server.Run(defaultPort)
 }

@@ -9,6 +9,7 @@ import (
 
 	"github.com/deyr02/bnzlcrm/graph/generated"
 	"github.com/deyr02/bnzlcrm/graph/model"
+	metaaccount "github.com/deyr02/bnzlcrm/repositories/account/metaAccount"
 	"github.com/deyr02/bnzlcrm/repositories/activity/activityCollection"
 	metaactivity "github.com/deyr02/bnzlcrm/repositories/activity/metaActivity"
 	"github.com/deyr02/bnzlcrm/repositories/database"
@@ -36,6 +37,7 @@ var UserRoleRepository userrole.User_Role_Repository = userrole.New_User_Role_re
 var userCollectionRepository userCollection.User_Repository = userCollection.New_User_Repository(client)
 var metaActivityRepository metaactivity.Meta_Activity_Repository = metaactivity.New_Meta_Activity_Repository(client)
 var activityRepository activityCollection.Activity_Repository = activityCollection.New_Activity_Repository(client)
+var metaAccountRepository metaaccount.Meta_Account_Repository = metaaccount.New_Meta_Activity_Repository(client)
 
 ///
 ///
@@ -101,17 +103,17 @@ func (r *mutationResolver) DeleteElementMetaActivity(ctx context.Context, id *st
 ///--------------------------------------------------------------------------------------------------------
 // AddNewElementMetaAccount is the resolver for the AddNewElement_Meta_Account field.
 func (r *mutationResolver) AddNewElementMetaAccount(ctx context.Context, input *model.NewCustomFieldElement) (*model.MetaAccountCollection, error) {
-	panic(fmt.Errorf("not implemented"))
+	return metaAccountRepository.AddNewElement_Meta_Account(ctx, input)
 }
 
 // ModifyElementMetaAccount is the resolver for the ModifyElement_Meta_Account field.
 func (r *mutationResolver) ModifyElementMetaAccount(ctx context.Context, id *string, input *model.NewCustomFieldElement) (*model.MetaAccountCollection, error) {
-	panic(fmt.Errorf("not implemented"))
+	return metaAccountRepository.ModifyElement_Meta_Account(ctx, *id, input)
 }
 
 // DeleteElementMetaAccount is the resolver for the DeleteElement_Meta_Account field.
 func (r *mutationResolver) DeleteElementMetaAccount(ctx context.Context, id *string) (string, error) {
-	panic(fmt.Errorf("not implemented"))
+	return metaActivityRepository.DeleteElement_Meta_Activity(ctx, *id)
 }
 
 ///
@@ -250,7 +252,7 @@ func (r *queryResolver) GetMetaActivityCollection(ctx context.Context) (*model.M
 ///--------------------------------------------------------------------------------------------------------
 // GetMetaAccountCollection is the resolver for the GetMetaAccountCollection field.
 func (r *queryResolver) GetMetaAccountCollection(ctx context.Context) (*model.MetaAccountCollection, error) {
-	panic(fmt.Errorf("not implemented"))
+	return metaAccountRepository.GetMetaAccountCollection(ctx)
 }
 
 ///--------------------------------------------------------------------------------------------------------

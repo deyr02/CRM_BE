@@ -401,3 +401,63 @@ func DeleteMetaActivityField() gin.HandlerFunc {
 		h.ServeHTTP(c.Writer, c.Request)
 	}
 }
+
+//----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
+//------------------------------------------meta Account ----------------------------------------
+//----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
+
+func GetAllMetaAccountField() gin.HandlerFunc {
+	h := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+	return func(c *gin.Context) {
+		if !CheckRequest(c, "GetMetaAccountCollection") {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+				"message": "Invalid Request",
+			})
+			return
+		}
+		h.ServeHTTP(c.Writer, c.Request)
+	}
+}
+
+func AddNewMetaAccountField() gin.HandlerFunc {
+	h := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+	return func(c *gin.Context) {
+		if !CheckRequest(c, "AddNewElement_Meta_Account") {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+				"message": "Invalid Request",
+			})
+			return
+		}
+		h.ServeHTTP(c.Writer, c.Request)
+	}
+}
+
+func ModifyMetaAccountField() gin.HandlerFunc {
+	h := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+	return func(c *gin.Context) {
+		if !CheckRequest(c, "ModifyElement_Meta_Account") {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+				"message": "Invalid Request",
+			})
+			return
+		}
+		h.ServeHTTP(c.Writer, c.Request)
+	}
+}
+
+func DeleteMetaAccountField() gin.HandlerFunc {
+	h := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+	return func(c *gin.Context) {
+		if !CheckRequest(c, "DeleteElement_Meta_Account") {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+				"message": "Invalid Request",
+			})
+			return
+		}
+		h.ServeHTTP(c.Writer, c.Request)
+	}
+}
