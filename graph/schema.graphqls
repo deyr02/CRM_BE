@@ -201,7 +201,8 @@ type Account{
 
 
 input NewAccount{
-   Properties: [NewElementValue!]!
+  AccountName: String!
+  Properties: [NewElementValue!]!
 }
 
 #-----------------------Account-Meta-collection------------------
@@ -335,8 +336,8 @@ type Mutation{
  
 
   #-------------------Account-collection---------------------
-  AddNewAccount(input:NewActivity): Account!
-  ModifyAccount(_id:String, input:NewActivity): Account!
+  AddNewAccount(input:NewAccount): Account!
+  ModifyAccount(_id:String, input:NewAccount): Account!
   DeleteAccount(_id: String): String!
 
  

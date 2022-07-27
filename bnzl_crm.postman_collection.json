@@ -827,6 +827,298 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Account_Meta",
+			"item": [
+				{
+					"name": "AccountFormCollection",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/accountform/metaaccount?query=query GetMetaActivityCollection{\n  GetMetaAccountCollection{\n    Fields{\n      FieldID\n      FieldName\n      DataType\n      FieldType\n      IsRequired\n      Visibility\n      SystemFieled\n      MaxValue\n      MinValue\n      DefaultValue\n      PossibleValues\n      FieldOrder\n    }\n  }\n}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"accountform",
+								"metaaccount"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "query GetMetaActivityCollection{\n  GetMetaAccountCollection{\n    Fields{\n      FieldID\n      FieldName\n      DataType\n      FieldType\n      IsRequired\n      Visibility\n      SystemFieled\n      MaxValue\n      MinValue\n      DefaultValue\n      PossibleValues\n      FieldOrder\n    }\n  }\n}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new field",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation AddNewElement_Meta_Account{\r\n  AddNewElement_Meta_Account(input:{\r\n          FieldName: \"Status\",\r\n          DataType: String,\r\n          FieldType: TextBox,\r\n          IsRequired: true,\r\n          Visibility: true,\r\n          SystemFieled: false,\r\n          MaxValue: 32,\r\n          MinValue: 8,\r\n          DefaultValue: \"\",\r\n          PossibleValues: null,\r\n          FieldOrder: 5}){\r\n\t\tFields{\r\n       FieldID\r\n      FieldName\r\n      DataType\r\n      FieldType\r\n      IsRequired\r\n      Visibility\r\n      SystemFieled\r\n      MaxValue\r\n      MinValue\r\n      DefaultValue\r\n      PossibleValues\r\n      FieldOrder\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/accountform/addnewfield",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"accountform",
+								"addnewfield"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modfify Field",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation  ModifyElement_Meta_Account{\r\n  ModifyElement_Meta_Account(_id: \"511d6414aac4456bb573266170a7931a\", input:{\r\n\t\t\t\t\tFieldName:\"Email\",\r\n          DataType: String,\r\n          FieldType: TextBox,\r\n          IsRequired: true,\r\n          Visibility: true,\r\n          SystemFieled: false,\r\n          MaxValue: 32,\r\n          MinValue: 8,\r\n          DefaultValue: \"\",\r\n          PossibleValues: null,\r\n          FieldOrder: 5\r\n  }){\r\n    Fields{\r\n         FieldID\r\n      FieldName\r\n      DataType\r\n      FieldType\r\n      IsRequired\r\n      Visibility\r\n      SystemFieled\r\n      MaxValue\r\n      MinValue\r\n      DefaultValue\r\n      PossibleValues\r\n      FieldOrder\r\n    }\r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/accountform/modifyfield",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"accountform",
+								"modifyfield"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Field",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation DeleteElement_Meta_Account{\r\n\tDeleteElement_Meta_Account(_id:\"a85aa521a44d49bab837bfacc3d59e1\")\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/accountform/deletefield",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"accountform",
+								"deletefield"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "GetAllAccount",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/account/getallaccounts?query=query GetAllAccount{\n  GetAllAccount{\n    AccountID\n    CreatedAT\n    UpdatedAT\n    CreatedBy\n    ModifiedBy\n    DeletedAT\n    Properties{\n      key\n      value\n    }\n  }\n}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"account",
+								"getallaccounts"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "query GetAllAccount{\n  GetAllAccount{\n    AccountID\n    CreatedAT\n    UpdatedAT\n    CreatedBy\n    ModifiedBy\n    DeletedAT\n    Properties{\n      key\n      value\n    }\n  }\n}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Account by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/account/getaccount?query=query GetAccountByID{\n  GetAccountByID(_id:\"38d0aede8918428d93d9bb3c809c0bfa\"){\n    AccountID\n    CreatedAT\n    UpdatedAT\n    CreatedBy\n    ModifiedBy\n    DeletedAT\n    Properties{\n      key\n      value\n    }\n  }\n}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"account",
+								"getaccount"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "query",
+									"value": "query GetAccountByID{\n  GetAccountByID(_id:\"38d0aede8918428d93d9bb3c809c0bfa\"){\n    AccountID\n    CreatedAT\n    UpdatedAT\n    CreatedBy\n    ModifiedBy\n    DeletedAT\n    Properties{\n      key\n      value\n    }\n  }\n}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation AddAccount{\r\n  AddNewAccount(input:{\r\n    AccountName:\"French Country club\"\r\n    Properties:[\r\n      \r\n      {\r\n        key:\"AccountName\"\r\n        DataType:String\r\n        value:\"French country club\"\r\n      },\r\n       {\r\n        key:\"AccountType\"\r\n        DataType:String\r\n        value:\"Customer\"\r\n      },\r\n    ]\r\n  }){\r\n   AccountID\r\n   AccountName\r\n    CreatedAT\r\n    UpdatedAT\r\n    CreatedBy\r\n    ModifiedBy\r\n    DeletedAT\r\n    Properties{\r\n      key\r\n      value\r\n    }\r\n    \r\n  }\r\n}\r\n\r\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/account/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"account",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "\r\nmutation ModifyAccount{\r\n  ModifyAccount(_id:\"04ab8e263085416d80d74579291c04c7\", input:{\r\n   AccountName:\"French Country club\"\r\n    Properties:[\r\n      \r\n      {\r\n        key:\"AccountName\"\r\n        DataType:String\r\n        value:\"French country club\"\r\n      },\r\n    ]\r\n  }){\r\n   AccountID\r\n   AccountName\r\n    CreatedAT\r\n    UpdatedAT\r\n    CreatedBy\r\n    ModifiedBy\r\n    DeletedAT\r\n    Properties{\r\n      key\r\n      value\r\n    }\r\n    \r\n  }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/account/modifyaccount/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"account",
+								"modifyaccount",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation DeleteAccount {\r\n  DeleteAccount(_id:\"fcd879d010db412ba98097000744c23d\")\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{url}}/account/deleteaccount",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"account",
+								"deleteaccount"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

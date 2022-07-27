@@ -99,7 +99,7 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		AddNewAccount             func(childComplexity int, input *model.NewActivity) int
+		AddNewAccount             func(childComplexity int, input *model.NewAccount) int
 		AddNewActivity            func(childComplexity int, input *model.NewActivity) int
 		AddNewElementMetaAccount  func(childComplexity int, input *model.NewCustomFieldElement) int
 		AddNewElementMetaActivity func(childComplexity int, input *model.NewCustomFieldElement) int
@@ -114,7 +114,7 @@ type ComplexityRoot struct {
 		DeleteElementMetaUser     func(childComplexity int, id *string) int
 		DeleteUser                func(childComplexity int, id *string) int
 		Login                     func(childComplexity int, input *model.Login) int
-		ModifyAccount             func(childComplexity int, id *string, input *model.NewActivity) int
+		ModifyAccount             func(childComplexity int, id *string, input *model.NewAccount) int
 		ModifyActivity            func(childComplexity int, id *string, input *model.NewActivity) int
 		ModifyElementMetaAccount  func(childComplexity int, id *string, input *model.NewCustomFieldElement) int
 		ModifyElementMetaActivity func(childComplexity int, id *string, input *model.NewCustomFieldElement) int
@@ -198,8 +198,8 @@ type MutationResolver interface {
 	AddNewActivity(ctx context.Context, input *model.NewActivity) (*model.Activity, error)
 	ModifyActivity(ctx context.Context, id *string, input *model.NewActivity) (*model.Activity, error)
 	DeleteActivity(ctx context.Context, id *string) (string, error)
-	AddNewAccount(ctx context.Context, input *model.NewActivity) (*model.Account, error)
-	ModifyAccount(ctx context.Context, id *string, input *model.NewActivity) (*model.Account, error)
+	AddNewAccount(ctx context.Context, input *model.NewAccount) (*model.Account, error)
+	ModifyAccount(ctx context.Context, id *string, input *model.NewAccount) (*model.Account, error)
 	DeleteAccount(ctx context.Context, id *string) (string, error)
 }
 type QueryResolver interface {
@@ -472,7 +472,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.AddNewAccount(childComplexity, args["input"].(*model.NewActivity)), true
+		return e.complexity.Mutation.AddNewAccount(childComplexity, args["input"].(*model.NewAccount)), true
 
 	case "Mutation.AddNewActivity":
 		if e.complexity.Mutation.AddNewActivity == nil {
@@ -652,7 +652,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.ModifyAccount(childComplexity, args["_id"].(*string), args["input"].(*model.NewActivity)), true
+		return e.complexity.Mutation.ModifyAccount(childComplexity, args["_id"].(*string), args["input"].(*model.NewAccount)), true
 
 	case "Mutation.ModifyActivity":
 		if e.complexity.Mutation.ModifyActivity == nil {
@@ -1278,7 +1278,8 @@ type Account{
 
 
 input NewAccount{
-   Properties: [NewElementValue!]!
+  AccountName: String!
+  Properties: [NewElementValue!]!
 }
 
 #-----------------------Account-Meta-collection------------------
@@ -1351,19 +1352,19 @@ type Query{
   ##User
   GetAllUser:[User!]!
   GetUserByID(_id:String): User!
- # GetUserByUserName (_userName: String): User!
+  # GetUserByUserName (_userName: String): User!
 
 
-## --------Activity--------------
-GetAllActivity: [Activity!]!
-GetActivityByID(_id:String): Activity!
+  ## --------Activity--------------
+  GetAllActivity: [Activity!]!
+  GetActivityByID(_id:String): Activity!
 
 
-## --------Account--------------
-GetAllAccount: [Account!]!
-GetAccountByID(_id:String): Account!
+  ## --------Account--------------
+  GetAllAccount: [Account!]!
+  GetAccountByID(_id:String): Account!
 
-}
+  }
 
 type Mutation{
 
@@ -1412,8 +1413,8 @@ type Mutation{
  
 
   #-------------------Account-collection---------------------
-  AddNewAccount(input:NewActivity): Account!
-  ModifyAccount(_id:String, input:NewActivity): Account!
+  AddNewAccount(input:NewAccount): Account!
+  ModifyAccount(_id:String, input:NewAccount): Account!
   DeleteAccount(_id: String): String!
 
  
@@ -1431,10 +1432,10 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 func (ec *executionContext) field_Mutation_AddNewAccount_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.NewActivity
+	var arg0 *model.NewAccount
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalONewActivity2ᚖgithubᚗcomᚋdeyr02ᚋbnzlcrmᚋgraphᚋmodelᚐNewActivity(ctx, tmp)
+		arg0, err = ec.unmarshalONewAccount2ᚖgithubᚗcomᚋdeyr02ᚋbnzlcrmᚋgraphᚋmodelᚐNewAccount(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1665,10 +1666,10 @@ func (ec *executionContext) field_Mutation_ModifyAccount_args(ctx context.Contex
 		}
 	}
 	args["_id"] = arg0
-	var arg1 *model.NewActivity
+	var arg1 *model.NewAccount
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg1, err = ec.unmarshalONewActivity2ᚖgithubᚗcomᚋdeyr02ᚋbnzlcrmᚋgraphᚋmodelᚐNewActivity(ctx, tmp)
+		arg1, err = ec.unmarshalONewAccount2ᚖgithubᚗcomᚋdeyr02ᚋbnzlcrmᚋgraphᚋmodelᚐNewAccount(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -4641,7 +4642,7 @@ func (ec *executionContext) _Mutation_AddNewAccount(ctx context.Context, field g
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().AddNewAccount(rctx, fc.Args["input"].(*model.NewActivity))
+		return ec.resolvers.Mutation().AddNewAccount(rctx, fc.Args["input"].(*model.NewAccount))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4714,7 +4715,7 @@ func (ec *executionContext) _Mutation_ModifyAccount(ctx context.Context, field g
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().ModifyAccount(rctx, fc.Args["_id"].(*string), fc.Args["input"].(*model.NewActivity))
+		return ec.resolvers.Mutation().ModifyAccount(rctx, fc.Args["_id"].(*string), fc.Args["input"].(*model.NewAccount))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -8549,13 +8550,21 @@ func (ec *executionContext) unmarshalInputNewAccount(ctx context.Context, obj in
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"Properties"}
+	fieldsInOrder := [...]string{"AccountName", "Properties"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
 			continue
 		}
 		switch k {
+		case "AccountName":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("AccountName"))
+			it.AccountName, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		case "Properties":
 			var err error
 
@@ -11230,6 +11239,14 @@ func (ec *executionContext) marshalOMetaActivityCollection2ᚖgithubᚗcomᚋdey
 		return graphql.Null
 	}
 	return ec._MetaActivityCollection(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalONewAccount2ᚖgithubᚗcomᚋdeyr02ᚋbnzlcrmᚋgraphᚋmodelᚐNewAccount(ctx context.Context, v interface{}) (*model.NewAccount, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := ec.unmarshalInputNewAccount(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalONewActivity2ᚖgithubᚗcomᚋdeyr02ᚋbnzlcrmᚋgraphᚋmodelᚐNewActivity(ctx context.Context, v interface{}) (*model.NewActivity, error) {

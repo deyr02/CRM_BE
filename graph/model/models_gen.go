@@ -68,7 +68,8 @@ type MetaUserCollection struct {
 }
 
 type NewAccount struct {
-	Properties []*NewElementValue `json:"Properties"`
+	AccountName string             `json:"AccountName"`
+	Properties  []*NewElementValue `json:"Properties"`
 }
 
 type NewActivity struct {

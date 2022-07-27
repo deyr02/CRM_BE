@@ -96,9 +96,17 @@ func main() {
 
 	//
 	//
-	//---------------------Activity--------------------------------
+	//---------------------Account--------------------------------
 	//
 	//
+	accounts := server.Group("account")
+	accounts.Use(auth.AuthMiddleware())
+	accounts.GET("/getallaccounts", http.GetAllAccountHandler())
+	accounts.GET("/getaccount", http.GetAccountByID())
+	accounts.POST("/", http.AddNewAccount())
+	accounts.POST("/modifyaccount", http.ModifyAccount())
+	accounts.POST("/deleteaccount", http.DeleteAccount())
+
 	metaaccount := server.Group("accountform")
 	metaaccount.Use(auth.AuthAdminMiddleware())
 	metaaccount.GET("/metaaccount", http.GetAllMetaAccountField())

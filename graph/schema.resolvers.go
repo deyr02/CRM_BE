@@ -5,10 +5,10 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/deyr02/bnzlcrm/graph/generated"
 	"github.com/deyr02/bnzlcrm/graph/model"
+	accountcollection "github.com/deyr02/bnzlcrm/repositories/account/accountCollection"
 	metaaccount "github.com/deyr02/bnzlcrm/repositories/account/metaAccount"
 	"github.com/deyr02/bnzlcrm/repositories/activity/activityCollection"
 	metaactivity "github.com/deyr02/bnzlcrm/repositories/activity/metaActivity"
@@ -38,6 +38,7 @@ var userCollectionRepository userCollection.User_Repository = userCollection.New
 var metaActivityRepository metaactivity.Meta_Activity_Repository = metaactivity.New_Meta_Activity_Repository(client)
 var activityRepository activityCollection.Activity_Repository = activityCollection.New_Activity_Repository(client)
 var metaAccountRepository metaaccount.Meta_Account_Repository = metaaccount.New_Meta_Activity_Repository(client)
+var accountRepository accountcollection.Account_Repository = accountcollection.New_Account_Repository(client)
 
 ///
 ///
@@ -188,18 +189,18 @@ func (r *mutationResolver) DeleteActivity(ctx context.Context, id *string) (stri
 ///--------------------------------------------------------------------------------------------------------
 
 // AddNewAccount is the resolver for the AddNewAccount field.
-func (r *mutationResolver) AddNewAccount(ctx context.Context, input *model.NewActivity) (*model.Account, error) {
-	panic(fmt.Errorf("not implemented"))
+func (r *mutationResolver) AddNewAccount(ctx context.Context, input *model.NewAccount) (*model.Account, error) {
+	return accountRepository.AddNewAccount(ctx, input)
 }
 
 // ModifyAccount is the resolver for the ModifyAccount field.
-func (r *mutationResolver) ModifyAccount(ctx context.Context, id *string, input *model.NewActivity) (*model.Account, error) {
-	panic(fmt.Errorf("not implemented"))
+func (r *mutationResolver) ModifyAccount(ctx context.Context, id *string, input *model.NewAccount) (*model.Account, error) {
+	return accountRepository.ModifyAccount(ctx, *id, input)
 }
 
 // DeleteAccount is the resolver for the DeleteAccount field.
 func (r *mutationResolver) DeleteAccount(ctx context.Context, id *string) (string, error) {
-	panic(fmt.Errorf("not implemented"))
+	return accountRepository.Deleteaccount(ctx, *id)
 }
 
 ///
@@ -299,12 +300,12 @@ func (r *queryResolver) GetActivityByID(ctx context.Context, id *string) (*model
 ///--------------------------------------------------------------------------------------------------------
 // GetAllAccount is the resolver for the GetAllAccount field.
 func (r *queryResolver) GetAllAccount(ctx context.Context) ([]*model.Account, error) {
-	panic(fmt.Errorf("not implemented"))
+	return accountRepository.GetAllAccount(ctx)
 }
 
 // GetAccountByID is the resolver for the GetAccountByID field.
 func (r *queryResolver) GetAccountByID(ctx context.Context, id *string) (*model.Account, error) {
-	panic(fmt.Errorf("not implemented"))
+	return accountRepository.GetAccountByID(ctx, *id)
 }
 
 // Mutation returns generated.MutationResolver implementation.
