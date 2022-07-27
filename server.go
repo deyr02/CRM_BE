@@ -41,7 +41,7 @@ func main() {
 	//---------------------Account--------------------------------
 	//
 	//
-	account := server.Group("account")
+	account := server.Group("")
 	account.POST("/login", http.LoginHandler())
 	//
 	//

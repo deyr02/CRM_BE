@@ -35,12 +35,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/account/login",
+							"raw": "{{url}}/login",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"account",
 								"login"
 							]
 						}
@@ -73,12 +72,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/account/login",
+							"raw": "{{url}}/login",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"account",
 								"login"
 							]
 						}
